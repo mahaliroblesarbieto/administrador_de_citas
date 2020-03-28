@@ -1,28 +1,45 @@
 import React, { useState } from "react";
 
 const Formulario = () => {
-
   const [cita, actualizarCita] = useState({
-    mascota: '',
-    propietario:'',
-    fecha:'',
-    hora:'',
-    sintomas:'',
-  })
+    mascota: "",
+    propietario: "",
+    fecha: "",
+    hora: "",
+    sintomas: ""
+  });
 
-  const actualizarState = (e) => {
+  const [error, setError] = useState(false);
+
+  const { mascota, propietario, fecha, hora, sintomas } = cita;
+
+  const actualizarState = e => {
     actualizarCita({
       ...cita,
       [e.target.name]: e.target.value
-    })
-  }
-
-  const {mascota, propietario, fecha, hora, sintomas } = cita;
+    });
+  };
+  const submitForm = e => {
+    e.preventDefault();
+    if (
+      mascota.trim() === "" ||
+      propietario.trim() ||
+      fecha.trim() ||
+      hora.trim() ||
+      sintomas.trim()
+    ) {
+      setError(true);
+      return;
+    }
+  };
 
   return (
     <>
       <h2>Desde Formulario</h2>
-      <form>
+      {error ? (
+        <p className="alerta-error">Todos los campos son obligatorios</p>
+      ) : null}
+      <form onSubmit={submitForm}>
         <label>Nombre Mascota</label>
         <input
           type="text"
