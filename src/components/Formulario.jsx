@@ -34,6 +34,13 @@ const Formulario = ({ obtenerCitas }) => {
       setError(false);
       cita.id = uuid();
       obtenerCitas(cita);
+      actualizarCita({
+        mascota: "",
+        propietario: "",
+        fecha: "",
+        hora: "",
+        sintomas: ""
+      })
     }
   };
 
