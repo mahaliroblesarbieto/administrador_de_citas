@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import uuid from "uuid/v4";
 
-const Formulario = () => {
+const Formulario = ({ obtenerCitas }) => {
   const [cita, actualizarCita] = useState({
     mascota: "",
     propietario: "",
@@ -23,13 +24,16 @@ const Formulario = () => {
     e.preventDefault();
     if (
       mascota.trim() === "" ||
-      propietario.trim() ||
-      fecha.trim() ||
-      hora.trim() ||
-      sintomas.trim()
+      propietario.trim() === "" ||
+      fecha.trim() === "" ||
+      hora.trim() === ""||
+      sintomas.trim() === ""
     ) {
       setError(true);
-      return;
+    } else {
+      setError(false);
+      cita.id = uuid();
+      obtenerCitas(cita);
     }
   };
 
